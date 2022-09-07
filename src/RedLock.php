@@ -17,7 +17,7 @@ class RedLock
 
     private $servers = array();
     /**
-     * @var  PhpRedisConnection[]
+     * @var $instances PhpRedisConnection[]
      */
     private $instances = array();
     private $autoRelease = false;
