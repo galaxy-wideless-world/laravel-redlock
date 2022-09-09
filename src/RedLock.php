@@ -24,7 +24,7 @@ class RedLock
 
     private $lockRes = [];
 
-    function __construct($autoRelease = false, array $servers = ['demo'], $retryDelay = 200, $retryCount = 3)
+    function __construct($autoRelease = false, $retryCount = 1, $retryDelay = 200, array $servers = ['demo'])
     {
 //        $this->servers = $servers;
 
@@ -81,8 +81,11 @@ class RedLock
             }
 
             // Wait a random delay before to retry
-            $delay = mt_rand(floor($this->retryDelay / 2), $this->retryDelay);
-            usleep($delay * 1000);
+            //while this is last circle,then do not sleep
+            if ($retry>1){
+                $delay = mt_rand(floor($this->retryDelay / 2), $this->retryDelay);
+                usleep($delay * 1000);
+            }
 
             $retry--;
 
